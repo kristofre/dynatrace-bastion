@@ -48,10 +48,9 @@ sudo apt-get -y install docker-ce \
 
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.6 2
-echo 'about to upgrade pip'
-#pip install --upgrade pip
+
 echo 'about to install compose'
-pip3 install -q docker-compose --user
+sudo pip3 install -q docker-compose
 
 echo 'about to install aws'
 #Install AWS Cli
@@ -62,5 +61,6 @@ echo 'about to install oc'
 wget -O openshift-cli.tar https://github.com/openshift/origin/releases/download/v3.10.0/openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit.tar.gz 
 mkdir openshift-cli
 tar -xvf openshift-cli.tar -C ~/openshift-cli --strip-components=1
+export PATH="$PATH":~/openshift-cli
 echo 'export PATH="$PATH":~/openshift-cli' >> ~/.profile
 cd ~
