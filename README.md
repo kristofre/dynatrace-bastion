@@ -12,13 +12,14 @@ None - just copy the file to a blank Ubuntu VM (tested on Xenial) and make sure 
 #What it does
 Following software is installed
 1. Docker CE
-2. gcloud sk
+2. gcloud sdk
 3. azure cli
 4. kubernetes cli
 5. openshift cli
 6. maven
 7. python
 8. nodejs
+9. awscli
 
 # Usage for the Vagrant file
 `vagrant up`
