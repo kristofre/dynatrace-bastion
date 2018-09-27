@@ -9,7 +9,7 @@ Following is required to use this vagrant vm
 # Requirements for using the provision.sh file
 None - just copy the file to a blank Ubuntu VM (tested on Xenial) and make sure it is executable
 
-#What it does
+# What it does
 Following software is installed
 1. Docker CE
 2. gcloud sdk
