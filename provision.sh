@@ -1,10 +1,12 @@
 #!/bin/bash -e
 
 ###### 1. First apt update and install packages needed for further work
+echo '1. First apt update and install packages needed for further work'
 sudo apt-get update
 sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common
 
 ###### 2. Add Repositories
+echo '2. Add Repositories'
 #Docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
@@ -32,11 +34,12 @@ sudo add-apt-repository -y ppa:deadsnakes/ppa
 
 sudo apt-get update
 
-###### 3. Install packages
-# Install docker and docker-compose, python, nodejs
+###### 3. Install docker and docker-compose, python, nodejs
+echo '3. Install packages python, pip, nodejs, google-cloud-sdk, kubectl, azure-cli, maven'
 sudo apt-get -y install docker-ce \
     python3.6 \
     python-pip \
+    python3-pip \
     nodejs \
     google-cloud-sdk \
     kubectl \
@@ -45,32 +48,19 @@ sudo apt-get -y install docker-ce \
 
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.6 2
+echo 'about to upgrade pip'
+#pip install --upgrade pip
+echo 'about to install compose'
+pip3 install -q docker-compose --user
 
-sudo pip install --upgrade pip
-sudo pip install -q docker-compose
-
-#Install gcloud
-#sudo apt-get install -y google-cloud-sdk
-
-#Install kubectl
-#sudo apt-get install -y kubectl
-
-#Install azure cli
-#sudo apt-get install -y azure-cli
-
-#Install maven
-#sudo apt-get install -y maven
-
+echo 'about to install aws'
 #Install AWS Cli
 pip install awscli --upgrade --user
-export PATH=$PATH:~/.local/bin
 
-source ~/.bashrc
-
+echo 'about to install oc'
 #Install OpenShift Origin CLI
 wget -O openshift-cli.tar https://github.com/openshift/origin/releases/download/v3.10.0/openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit.tar.gz 
 mkdir openshift-cli
 tar -xvf openshift-cli.tar -C ~/openshift-cli --strip-components=1
-export PATH=$PATH:~/openshift-cli
-source ~/.bashrc
+echo 'export PATH="$PATH":~/openshift-cli' >> ~/.profile
 cd ~
