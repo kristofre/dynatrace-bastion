@@ -1,11 +1,9 @@
 #!/bin/bash -e
 
-###### 1. First apt update and install packages needed for further work
 echo '1. First apt update and install packages needed for further work'
 sudo apt-get update
-sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common
+sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common unzip
 
-###### 2. Add Repositories
 echo '2. Add Repositories'
 #Docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -46,21 +44,25 @@ sudo apt-get -y install docker-ce \
     azure-cli \
     maven
 
+# Changing default python version to 3.6
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.6 2
 
-echo 'about to install compose'
+echo '4. Install compose'
 sudo pip3 install -q docker-compose
 
-echo 'about to install aws'
-#Install AWS Cli
+echo '5. Install AWS cli'
 pip install awscli --upgrade --user
 
-echo 'about to install oc'
-#Install OpenShift Origin CLI
+echo '6. Install OpenShift Origin CLI'
 wget -O openshift-cli.tar https://github.com/openshift/origin/releases/download/v3.10.0/openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit.tar.gz 
 mkdir openshift-cli
 tar -xvf openshift-cli.tar -C ~/openshift-cli --strip-components=1
-export PATH="$PATH":~/openshift-cli
 echo 'export PATH="$PATH":~/openshift-cli' >> ~/.profile
 cd ~
+
+echo '7. Install Terraform'
+wget -O terraform.zip https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip
+mkdir terraform
+unzip terraform.zip -d ~/terraform
+echo 'export PATH="$PATH":~/terraform' >> ~/.profile
